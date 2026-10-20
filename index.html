@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>茉莉横州 · 我的家乡 —— 中国茉莉之乡文旅志</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+@layer reset, tokens, base, nav, hero, sections, gallery, video, motion, responsive, print;
+
+@layer reset {
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  img, video { display: block; max-width: 100%; }
+}
+
+@layer tokens {
+  :root {
+    --paper: oklch(97.2% 0.008 120);
+    --paper-warm: oklch(94.8% 0.014 110);
+    --ink: oklch(24% 0.035 155);
+    --ink-2: oklch(40% 0.03 155);
+    --ink-3: oklch(56% 0.025 155);
+    --moss: oklch(38% 0.075 155);        /* 苔绿 · 主色 */
+    --moss-deep: oklch(29% 0.06 158);    /* 深林绿 */
+    --jasmine: oklch(98.5% 0.004 120);   /* 茉莉白 */
+    --amber: oklch(72% 0.11 75);         /* 花蕊琥珀 · 点缀 */
+    --amber-deep: oklch(58% 0.1 70);
+    --line: color-mix(in oklab, var(--ink) 16%, transparent);
+    --line-strong: color-mix(in oklab, var(--ink) 42%, transparent);
+    --serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", SimSun, serif;
+    --ease-quart: cubic-bezier(.25,1,.5,1);
+    --ease-expo: cubic-bezier(.16,1,.3,1);
+    --dur-1: 150ms; --dur-2: 320ms; --dur-3: 700ms;
+    --step-0: clamp(.95rem, .92rem + .18vw, 1.05rem);
+    --step-1: clamp(1.13rem, 1.05rem + .35vw, 1.32rem);
+    --step-2: clamp(1.38rem, 1.22rem + .7vw, 1.8rem);
+    --step-3: clamp(1.7rem, 1.4rem + 1.3vw, 2.5rem);
+    --step-4: clamp(2.4rem, 1.7rem + 3.4vw, 4.3rem);
+    --wrap: 72rem;
+  }
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: var(--step-0);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: color-mix(in oklab, var(--amber) 40%, transparent); }
+  :focus-visible { outline: 2px solid var(--amber-deep); outline-offset: 3px; }
+  .wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: clamp(1.1rem, 4vw, 2.5rem); }
+  p + p { margin-top: .9em; }
+}
+
+@layer nav {
+  .topnav {
+    position: fixed; inset-inline: 0; top: 0; z-index: 50;
+    background: color-mix(in oklab, var(--moss-deep) 92%, transparent);
+    backdrop-filter: blur(10px);
+    color: var(--jasmine);
+    border-bottom: 1px solid color-mix(in oklab, var(--jasmine) 14%, transparent);
+    opacity: 0; transform: translateY(-100%);
+    transition: opacity var(--dur-2) var(--ease-quart), transform var(--dur-2) var(--ease-quart);
+  }
+  .topnav.on { opacity: 1; transform: none; }
+  .topnav .wrap { display: flex; align-items: center; gap: 1.5rem; max-width: var(--wrap); }
+  .brand { font-weight: 900; letter-spacing: .3em; font-size: var(--step-0); white-space: nowrap; padding-block: .65rem; }
+  .brand i { font-style: normal; color: var(--amber); }
+  .navlinks { display: flex; gap: .2rem; overflow-x: auto; scrollbar-width: none; }
+  .navlinks::-webkit-scrollbar { display: none; }
+  .navlinks a {
+    color: color-mix(in oklab, var(--jasmine) 78%, transparent);
+    text-decoration: none; white-space: nowrap;
+    padding: .65rem .8rem; font-size: .92em; letter-spacing: .12em;
+    border-bottom: 2px solid transparent;
+    transition: color var(--dur-1) var(--ease-quart), border-color var(--dur-1) var(--ease-quart);
+  }
+  .navlinks a:hover { color: var(--jasmine); }
+  .navlinks a.cur { color: var(--amber); border-color: var(--amber); }
+}
+
+@layer hero {
+  .hero {
+    position: relative; min-height: 100svh;
+    display: grid; align-content: end;
+    color: var(--jasmine);
+    isolation: isolate; overflow: hidden;
+  }
+  .hero-bg { position: absolute; inset: 0; z-index: -2; }
+  .hero-bg img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); animation: herozoom 14s var(--ease-quart) forwards; }
+  @keyframes herozoom { to { transform: scale(1); } }
+  .hero::after {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(to top,
+      oklch(22% 0.04 160 / .88) 0%,
+      oklch(22% 0.04 160 / .45) 42%,
+      oklch(22% 0.04 160 / .12) 75%);
+  }
+  .hero .wrap { padding-block: clamp(2rem, 6vh, 4rem) clamp(2.2rem, 7vh, 4.5rem); }
+  .hero-kicker {
+    display: flex; align-items: center; gap: .8rem;
+    font-size: var(--step-1); letter-spacing: .5em; color: var(--amber);
+    text-shadow: 0 1px 12px oklch(0% 0 0 / .4);
+  }
+  .hero-kicker::before { content: ""; width: 3.2em; height: 1px; background: var(--amber); }
+  .hero h1 {
+    font-size: var(--step-4); font-weight: 900; line-height: 1.18; letter-spacing: .06em;
+    margin-top: .25em; text-shadow: 0 2px 24px oklch(0% 0 0 / .45);
+  }
+  .hero h1 small { display: block; font-size: .42em; font-weight: 600; letter-spacing: .34em; color: color-mix(in oklab, var(--jasmine) 92%, transparent); margin-top: .5em; }
+  .hero-sub { max-width: 34em; margin-top: 1.4em; font-size: var(--step-1); color: color-mix(in oklab, var(--jasmine) 88%, transparent); }
+  .hero-facts { display: flex; flex-wrap: wrap; gap: .4rem 2.4rem; margin-top: 2.2em; }
+  .hero-facts b { font-size: var(--step-2); font-weight: 900; color: var(--amber); font-variant-numeric: tabular-nums; }
+  .hero-facts span { display: block; font-size: .78em; letter-spacing: .18em; color: color-mix(in oklab, var(--jasmine) 75%, transparent); }
+  .scroll-hint {
+    position: absolute; right: clamp(1rem, 4vw, 2.5rem); bottom: 2rem; z-index: 1;
+    writing-mode: vertical-rl; letter-spacing: .4em; font-size: .8em;
+    color: color-mix(in oklab, var(--jasmine) 80%, transparent);
+    display: flex; align-items: center; gap: .8em;
+  }
+  .scroll-hint::after { content: ""; width: 1px; height: 4.5em; background: linear-gradient(var(--amber), transparent); animation: drip 2.2s var(--ease-quart) infinite; }
+  @keyframes drip { 0% { transform: scaleY(0); transform-origin: top; } 55% { transform: scaleY(1); transform-origin: top; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+}
+
+@layer sections {
+  section.chap { padding-block: clamp(3.5rem, 9vw, 6.5rem); }
+  section.chap:nth-of-type(even) { background: var(--paper-warm); }
+  .chap-head { display: flex; align-items: baseline; gap: 1.2rem; border-bottom: 1px solid var(--line-strong); padding-bottom: 1rem; }
+  .chap-no {
+    font-size: var(--step-3); font-weight: 900; color: transparent;
+    -webkit-text-stroke: 1.5px var(--moss); letter-spacing: .05em; line-height: 1;
+  }
+  .chap-title { font-size: var(--step-3); font-weight: 900; letter-spacing: .1em; }
+  .chap-en { margin-left: auto; font-size: .78em; letter-spacing: .3em; color: var(--ink-3); text-transform: uppercase; }
+  .chap-lede { max-width: 62ch; margin-top: 1.4rem; font-size: var(--step-1); color: var(--ink-2); }
+  .chap-lede strong { color: var(--moss); }
+  .vertical-tag {
+    writing-mode: vertical-rl; letter-spacing: .5em;
+    font-weight: 700; color: var(--moss); font-size: var(--step-0);
+    border-inline-start: 2px solid var(--amber); padding-inline-start: .8em;
+    position: absolute; top: 0; right: 0;
+  }
+
+  /* 序 · 数据 */
+  .facts-band {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--line-strong); border-block: 1px solid var(--line-strong);
+    margin-top: 2.6rem;
+  }
+  .facts-band > div { background: var(--paper); padding: 1.3rem 1.4rem; }
+  .facts-band b { display: block; font-size: var(--step-2); font-weight: 900; color: var(--moss); font-variant-numeric: tabular-nums; }
+  .facts-band small { display: block; font-size: .8em; letter-spacing: .14em; color: var(--ink-3); margin-top: .2em; }
+  .drop::first-letter {
+    float: left; font-size: 3.4em; line-height: .85; font-weight: 900;
+    color: var(--moss); padding-inline-end: .12em; padding-top: .06em;
+  }
+  .two-col { columns: 2 22rem; column-gap: 3rem; margin-top: 1.8rem; color: var(--ink-2); }
+  .two-col p { break-inside: avoid; }
+
+  /* 图文交错行 */
+  .story { display: grid; gap: clamp(1.2rem, 3vw, 2.4rem); align-items: center; margin-top: clamp(2.2rem, 5vw, 3.6rem); }
+  @container (min-width: 560px) { .story { grid-template-columns: 1.15fr 1fr; } }
+  .story.rev > figure { order: 2; }
+  @container (min-width: 560px) { .story.rev > figure { order: 0; } }
+  .story figure { position: relative; }
+  .story img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+  .story figcaption { font-size: .78em; color: var(--ink-3); letter-spacing: .08em; margin-top: .5em; }
+  .story h3 { font-size: var(--step-2); font-weight: 900; letter-spacing: .06em; }
+  .story h3 em { font-style: normal; color: var(--amber-deep); }
+  .story .txt { color: var(--ink-2); }
+  .story .txt .tag {
+    display: inline-block; font-size: .75em; letter-spacing: .2em; color: var(--moss);
+    border: 1px solid var(--moss); padding: .15em .8em; margin-bottom: .9em;
+  }
+  .story .container-q { container-type: inline-size; }
+
+  /* 图卡网格 */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.4rem 1.4rem; margin-top: 2.4rem; }
+  .card { position: relative; overflow: hidden; cursor: zoom-in; }
+  .card img { width: 100%; aspect-ratio: 4/3.1; object-fit: cover; transition: transform var(--dur-3) var(--ease-expo); }
+  .card:hover img { transform: scale(1.045); }
+  .card figcaption {
+    position: absolute; inset-inline: 0; bottom: 0; padding: 2.2em .9em .7em;
+    background: linear-gradient(transparent, oklch(20% 0.03 160 / .82));
+    color: var(--jasmine); font-size: .85em; letter-spacing: .1em;
+  }
+  .card figcaption b { display: block; font-size: 1.18em; font-weight: 900; letter-spacing: .14em; }
+  .card.wide { grid-column: span 2; }
+  @container (max-width: 560px) { .card.wide { grid-column: span 1; } }
+
+  /* 人文长文 */
+  .heritage { display: grid; gap: clamp(1.4rem, 3vw, 2.6rem); margin-top: 2.4rem; }
+  @container (min-width: 700px) { .heritage { grid-template-columns: 1.5fr 1fr; } }
+  .heritage > figure img { width: 100%; aspect-ratio: 16/10.5; object-fit: cover; }
+  .heritage figcaption { font-size: .78em; color: var(--ink-3); margin-top: .5em; letter-spacing: .08em; }
+  .heritage h3 { font-size: var(--step-2); font-weight: 900; }
+  .heritage h3 span { color: var(--amber-deep); }
+  .heritage .prose { color: var(--ink-2); margin-top: .8rem; }
+  .heritage aside { border-left: 3px solid var(--amber); padding-left: 1.2rem; align-self: start; }
+  .heritage aside h4 { font-size: var(--step-1); font-weight: 700; letter-spacing: .12em; }
+  .heritage aside ul { list-style: none; margin-top: .6rem; color: var(--ink-2); }
+  .heritage aside li { padding: .5em 0; border-bottom: 1px solid var(--line); font-size: .95em; }
+  .heritage aside li b { color: var(--moss); }
+
+  /* 美食清单 */
+  .menu { margin-top: 2.4rem; border-top: 1px solid var(--line-strong); }
+  .menu-row {
+    display: grid; grid-template-columns: 8.5em 1fr auto; gap: 1.2rem; align-items: baseline;
+    padding: 1.05rem .2rem; border-bottom: 1px solid var(--line);
+    transition: background var(--dur-1) var(--ease-quart);
+  }
+  .menu-row:hover { background: color-mix(in oklab, var(--amber) 9%, transparent); }
+  .menu-row dt { font-size: var(--step-1); font-weight: 900; letter-spacing: .1em; }
+  .menu-row dt i { font-style: normal; font-size: .62em; color: var(--amber-deep); letter-spacing: .18em; display: block; }
+  .menu-row dd { color: var(--ink-2); font-size: .95em; }
+  .menu-row .mark { font-weight: 900; color: var(--amber-deep); letter-spacing: .1em; font-size: .85em; white-space: nowrap; }
+
+  /* 锦囊 */
+  .tips { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.6rem; margin-top: 2.4rem; }
+  .tip { border-top: 3px solid var(--moss); background: var(--jasmine); padding: 1.3rem 1.4rem; }
+  .tip:nth-child(2) { border-color: var(--amber); }
+  .tip:nth-child(3) { border-color: var(--amber-deep); }
+  .tip h4 { font-size: var(--step-1); font-weight: 900; letter-spacing: .14em; }
+  .tip h4 small { display: block; font-size: .6em; color: var(--ink-3); letter-spacing: .28em; margin-top: .2em; }
+  .tip p { color: var(--ink-2); font-size: .95em; margin-top: .7em; }
+  .route { margin-top: 1rem; font-size: .92em; color: var(--ink-2); }
+  .route li { padding: .45em 0; border-bottom: 1px dashed var(--line); list-style: none; }
+  .route b { color: var(--moss); }
+}
+
+@layer gallery {
+  .lightbox {
+    position: fixed; inset: 0; z-index: 90;
+    background: oklch(15% 0.02 160 / .93);
+    display: grid; place-items: center; padding: 2.5rem;
+    opacity: 0; pointer-events: none;
+    transition: opacity var(--dur-2) var(--ease-quart);
+  }
+  .lightbox.on { opacity: 1; pointer-events: auto; }
+  .lightbox img { max-height: 86vh; max-width: 100%; box-shadow: 0 24px 80px oklch(0% 0 0 / .5); }
+  .lightbox .cap { position: absolute; bottom: 1.4rem; left: 0; right: 0; text-align: center; color: var(--jasmine); letter-spacing: .12em; font-size: .9em; }
+  .lightbox .close { position: absolute; top: 1.1rem; right: 1.6rem; color: var(--jasmine); font-size: 2rem; line-height: 1; }
+}
+
+@layer video {
+  .theater { margin-top: 2.6rem; }
+  .theater-grid { display: grid; gap: 1.6rem; }
+  @container (min-width: 720px) { .theater-grid { grid-template-columns: 1fr 1fr; } }
+  .film { background: var(--moss-deep); color: var(--jasmine); }
+  .film .screen { position: relative; }
+  .film video { width: 100%; aspect-ratio: 16/9; object-fit: contain; background: oklch(12% 0.02 160); }
+  .film .bar { display: flex; align-items: baseline; gap: .8rem; padding: .8rem 1.1rem; }
+  .film .bar b { letter-spacing: .16em; font-size: .95em; }
+  .film .bar i { font-style: normal; font-size: .72em; color: var(--amber); letter-spacing: .2em; border: 1px solid var(--amber); padding: .1em .6em; white-space: nowrap; }
+  .film .bar span { margin-left: auto; font-size: .75em; color: color-mix(in oklab, var(--jasmine) 65%, transparent); letter-spacing: .1em; }
+  .film .desc { padding: 0 1.1rem 1.1rem; font-size: .88em; color: color-mix(in oklab, var(--jasmine) 82%, transparent); }
+  .theater-note { margin-top: 1rem; font-size: .8em; color: var(--ink-3); letter-spacing: .06em; }
+}
+
+@layer motion {
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 600ms var(--ease-quart), transform 600ms var(--ease-quart); transition-delay: calc(var(--d, 0) * 80ms); }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: 150ms !important; }
+    .reveal { transform: none; }
+  }
+}
+
+@layer responsive {
+  .container-q { container-type: inline-size; }
+  @media (max-width: 640px) {
+    .facts-band { grid-template-columns: repeat(2, 1fr); }
+    .menu-row { grid-template-columns: 1fr; gap: .2rem; }
+    .menu-row .mark { display: none; }
+    .brand { letter-spacing: .18em; }
+    .hero-facts { gap: .4rem 1.6rem; }
+  }
+}
+
+@layer print {
+  @media print {
+    .topnav, .scroll-hint, .lightbox { display: none !important; }
+    .hero { min-height: 60vh; }
+    section.chap { break-inside: avoid; }
+  }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav" id="topnav" aria-label="章节导航">
+  <div class="wrap">
+    <span class="brand">茉莉<i>·</i>横州</span>
+    <div class="navlinks" id="navlinks">
+      <a href="#prologue">序 · 花香小城</a>
+      <a href="#jasmine">壹 · 茉莉花都</a>
+      <a href="#nature">贰 · 山水生态</a>
+      <a href="#heritage">叁 · 千古人文</a>
+      <a href="#taste">肆 · 风味物产</a>
+      <a href="#tips">行 · 出行锦囊</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-bg"><img src="assets/images/jasmine-1.jpg" alt="横州中华茉莉园万亩花海航拍" fetchpriority="high"></div>
+  <div class="wrap">
+    <p class="hero-kicker">我的家乡 · 广西横州</p>
+    <h1>茉莉横州<small>中国茉莉之乡 · 世界茉莉花都</small></h1>
+    <p class="hero-sub">郁江绕城，花田接天。全球十朵茉莉花，六朵开在这里——这座北回归线上的小城，把一缕花香种成了百万人的日常。</p>
+    <div class="hero-facts">
+      <div><b>18万亩</b><span>茉莉花种植面积</span></div>
+      <div><b>34万人</b><span>以花为生的花农</span></div>
+      <div><b>60%+</b><span>占世界茉莉花产量</span></div>
+      <div><b>190亿+</b><span>产业综合年产值</span></div>
+    </div>
+  </div>
+  <p class="scroll-hint" aria-hidden="true">向下 · 闻香</p>
+</header>
+
+<main>
+
+  <!-- 序 -->
+  <section class="chap container-q" id="prologue">
+    <div class="wrap">
+      <div class="chap-head reveal"><span class="chap-no">序</span><h2 class="chap-title">花香小城</h2><span class="chap-en">Prologue</span></div>
+      <p class="chap-lede reveal" style="--d:1">横州市，广西南宁代管的县级市，古称横州，建制一千三百年。地处北回归线以南，<strong>雨量充沛、日照充足、土壤富硒</strong>——这本是种什么长什么的土地，却偏偏被一朵小白花选中，长成了"全球最大的茉莉花和茉莉花茶生产基地"。</p>
+      <div class="two-col reveal" style="--d:2">
+        <p class="drop">横州与茉莉的缘分已续了五百多年。自 1978 年大规模种植算起，四十余年深耕，让"中国茉莉之乡""世界茉莉花都"从口号变成了坐标：张一元、吴裕泰的茉莉花茶原料大多来自这里，星巴克、奈雪的茉莉饮品也一样——你喝到的每一口茉莉香，大概率都来自横州的花田。</p>
+        <p>2024 年，横州"茉莉闻香之旅"入选广西旅游 100 条精品线路；世界茉莉花大会连续多年列入中国—东盟博览会系列活动。这座小城把一朵花做成了一条从田间到全球的产业链，也做成了一张请柬——邀你来看看花开的样子。</p>
+      </div>
+      <div class="facts-band reveal" style="--d:3">
+        <div><b>500年</b><small>茉莉种植历史</small></div>
+        <div><b>15万吨</b><small>年产茉莉鲜花</small></div>
+        <div><b>170+</b><small>花茶加工企业</small></div>
+        <div><b>70多国</b><small>花茶出口目的地</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 壹 · 茉莉花都 -->
+  <section class="chap container-q" id="jasmine">
+    <div class="wrap">
+      <div class="chap-head reveal"><span class="chap-no">壹</span><h2 class="chap-title">茉莉花都</h2><span class="chap-en">Jasmine Capital</span></div>
+      <p class="chap-lede reveal" style="--d:1">看花、采花、买花、窨茶、赴会——在横州，<strong>茉莉是一种旅行方式</strong>。</p>
+
+      <div class="story reveal" style="--d:1">
+        <figure><img src="assets/images/jasmine-4.jpg" alt="花农在中华茉莉园采摘茉莉花" loading="lazy"><figcaption>中华茉莉园，花农抢收待放花苞 · 横州市人民政府网</figcaption></figure>
+        <div class="txt">
+          <span class="tag">国家 AAAA 级景区</span>
+          <h3>中华茉莉园 · <em>万亩花海</em></h3>
+          <p>位于校椅镇石井村，建有 5000 亩茉莉花种植示范基地、莲石湖、茉莉花文化长廊与品种园。每年 4 月至 10 月底的花期，置身万亩花海，"翠丛万点晴雪"，馨香四溢。</p>
+          <p>花农清晨采花，午后交易，傍晚进窨——一天之内，你能看到一朵花走完全部旅程。</p>
+        </div>
+      </div>
+
+      <div class="story rev reveal">
+        <figure><img src="assets/images/jasmine-2.jpg" alt="石井村茉莉花交易市场" loading="lazy"><figcaption>中国茉莉小镇 · 茉莉花交易市场 · 横州发布</figcaption></figure>
+        <div class="txt">
+          <span class="tag">全球花市</span>
+          <h3>一朵花的 <em>全球集散</em></h3>
+          <p>石井村的茉莉花交易市场，是全国茶商的"朝圣地"。智能秤称重、扫码即付，花款秒到账；旺季日交易鲜花数十万斤。北京、山东、四川、陕西的客商在此常住收花。</p>
+        </div>
+      </div>
+
+      <div class="story reveal">
+        <figure><img src="assets/images/jasmine-10.jpg" alt="茉莉花老桩盆景" loading="lazy"><figcaption>茉莉花新优品种繁育基地的老桩盆景 · 横州发布</figcaption></figure>
+        <div class="txt">
+          <span class="tag">花不止于茶</span>
+          <h3>"1+9" <em>花香帝国</em></h3>
+          <p>以茉莉花茶为核心，横州拓展出盆栽、食品、旅游、用品、餐饮、药用、体育、康养九大业态：茉莉脆皮鸡、茉莉香皂、茉莉香水……连退出生产的老花树桩，也被改造成千元级艺术盆景。</p>
+        </div>
+      </div>
+
+      <div class="story rev reveal">
+        <figure><img src="assets/images/jasmine-7.jpg" alt="世界茉莉花大会现场" loading="lazy"><figcaption>世界茉莉花大会 · 第十三届全国茉莉花茶交易博览会 · 横州发布</figcaption></figure>
+        <div class="txt">
+          <span class="tag">以花会友</span>
+          <h3>世界茉莉花 <em>大会</em></h3>
+          <p>2000 年以来，横州连续承办 13 届全国茉莉花茶交易博览会、12 届茉莉花文化节；2019 年起，世界茉莉花大会列入中国—东盟博览会系列活动，横州茉莉花茶多次作为国礼茶赠予外宾。</p>
+        </div>
+      </div>
+
+      <!-- 视频 -->
+      <div class="theater reveal">
+        <h3 style="font-size:var(--step-2);font-weight:900;letter-spacing:.08em">影像横州 <span style="font-size:.6em;color:var(--ink-3);letter-spacing:.2em">HENGZHOU ON FILM</span></h3>
+        <div class="theater-grid">
+          <figure class="film">
+            <div class="screen">
+              <video src="assets/videos/hengzhou-a.mp4" controls preload="metadata" playsinline></video>
+            </div>
+            <figcaption class="bar"><b>花香横州 · 上篇</b><i>宣传片</i><span>点击 ▶ 播放</span></figcaption>
+            <figcaption class="desc">花田、花市与花茶制作——从一朵花苞到一盏花茶的全过程。</figcaption>
+          </figure>
+          <figure class="film">
+            <div class="screen">
+              <video src="assets/videos/hengzhou-b.mp4" controls preload="metadata" playsinline></video>
+            </div>
+            <figcaption class="bar"><b>花香横州 · 下篇</b><i>宣传片</i><span>点击 ▶ 播放</span></figcaption>
+            <figcaption class="desc">山水与人文巡礼——瀑布、湿地、古庙与这座小城的烟火日常。</figcaption>
+          </figure>
+        </div>
+        <p class="theater-note">两段视频由家乡提供，记录横州的花、山水与人。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 贰 · 山水生态 -->
+  <section class="chap container-q" id="nature">
+    <div class="wrap">
+      <div class="chap-head reveal"><span class="chap-no">贰</span><h2 class="chap-title">山水生态</h2><span class="chap-en">Nature & Scenery</span></div>
+      <p class="chap-lede reveal" style="--d:1">花田之外，横州还有<strong>一山一水一湿地</strong>：瀑布成群的原始森林、华南最大的人工湿地，和一座会发光的湖。</p>
+
+      <div class="cards">
+        <figure class="card wide reveal">
+          <img src="assets/images/jiulong-qunlong.png" alt="九龙瀑布群之群龙迎宾" loading="lazy">
+          <figcaption><b>九龙瀑布群国家森林公园</b>AAAA · 群龙迎宾 · 大小瀑布 20 余处</figcaption>
+        </figure>
+        <figure class="card reveal" style="--d:1">
+          <img src="assets/images/jiulong-dasheng.png" alt="大圣山" loading="lazy">
+          <figcaption><b>大圣山</b>海拔 1140 米 · 横州第一高峰</figcaption>
+        </figure>
+        <figure class="card reveal" style="--d:2">
+          <img src="assets/images/xijin-4.jpg" alt="西津国家湿地公园岛屿星罗棋布" loading="lazy">
+          <figcaption><b>西津国家湿地公园</b>华南最大人工湿地之一</figcaption>
+        </figure>
+        <figure class="card reveal" style="--d:1">
+          <img src="assets/images/xijin-3.jpg" alt="候鸟栖息西津湿地" loading="lazy">
+          <figcaption><b>候鸟天堂</b>迁徙候鸟停歇与越冬地</figcaption>
+        </figure>
+        <figure class="card wide reveal" style="--d:2">
+          <img src="assets/images/xijin-6.jpg" alt="白鹭翻飞" loading="lazy">
+          <figcaption><b>鹭鸟翻飞</b>39 种国家重点保护动物栖息于此</figcaption>
+        </figure>
+      </div>
+
+      <div class="two-col reveal" style="margin-top:2.4rem">
+        <p><strong>九龙瀑布群国家森林公园</strong>位于大圣山南麓，森林覆盖率 87.8%，亚热带雨林郁郁葱葱。"群龙迎宾、双龙戏珠、白龙出潭……"九条瀑布各据一潭，雅称"九龙"，是AAAA 级景区、国家级森林公园，也是天然的避暑氧吧。</p>
+        <p><strong>西津国家湿地公园</strong>因 20 世纪 50 年代末建成的西津水电站而成湖，是华南地区面积最大的人工湿地之一。泛舟湖上可观"西津晚霞、渔歌晚唱"；1964 年，周恩来总理曾为西津电站赋诗——"指点邕江变古今，西津灯火照天心"。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 叁 · 千古人文 -->
+  <section class="chap container-q" id="heritage">
+    <div class="wrap">
+      <div class="chap-head reveal"><span class="chap-no">叁</span><h2 class="chap-title">千古人文</h2><span class="chap-en">Heritage</span></div>
+      <p class="chap-lede reveal" style="--d:1">横州古八景今犹在——最负盛名的一处，藏在郁江的险滩之上。</p>
+
+      <div class="heritage">
+        <figure class="reveal">
+          <img src="assets/images/fubo-panorama.png" alt="乌蛮滩伏波庙全景" loading="lazy">
+          <figcaption>乌蛮滩伏波庙全景 · 全国重点文物保护单位 · 黄汝德 摄</figcaption>
+        </figure>
+        <div class="reveal" style="--d:1">
+          <h3>伏波庙 · <span>乌蛮积翠</span></h3>
+          <div class="prose">
+            <p>郁江乌蛮滩北岸，为纪念东汉伏波将军马援南征交趾、疏河通航而建。现存建筑为明清遗构，是广西仅存的五座明代木构架建筑之一，也是两广规模最大、保存最完好的马援纪念地。2013 年列入全国重点文物保护单位。</p>
+            <p>庙有二奇：其一"瓦顶不积落叶"，任凭西风卷叶，大殿屋顶片叶不留；其二"乌蛮积翠"，青山绿水江滩古庙互相映衬，位列横州古八景。每年农历四月十四伏波诞辰，数万船民香客溯江而来，庙会已列入自治区级非遗。</p>
+          </div>
+        </div>
+        <aside class="reveal" style="--d:2">
+          <h4>人文地图</h4>
+          <ul>
+            <li><b>海棠桥</b>——宋代已经是横州地标，秦观笔下"瘴雨过，海棠开"的旧地</li>
+            <li><b>施恒益大院</b>——民国富商宅邸（1933–1935），自治区级文保</li>
+            <li><b>周顺来茉莉茶展览馆</b>——AAA 景区，岭南建筑里的花茶史</li>
+            <li><b>圣茶谷景区</b>——全国三十座最美茶园之一</li>
+            <li><b>伏波庙会</b>——自治区级非物质文化遗产</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- 肆 · 风味物产 -->
+  <section class="chap container-q" id="taste">
+    <div class="wrap">
+      <div class="chap-head reveal"><span class="chap-no">肆</span><h2 class="chap-title">风味物产</h2><span class="chap-en">Taste of Hengzhou</span></div>
+      <p class="chap-lede reveal" style="--d:1">"没有一条鱼可以活着游出横州"——在这座把刀工当艺术的城里，<strong>吃，是最高规格的待客之道</strong>。</p>
+
+      <div class="cards">
+        <figure class="card wide reveal">
+          <img src="assets/images/yusheng-2.jpg" alt="横州鱼生" loading="lazy">
+          <figcaption><b>横州鱼生</b>"鸳鸯蝴蝶片" · 薄如蝉翼，配二十余味佐料</figcaption>
+        </figure>
+        <figure class="card reveal" style="--d:1">
+          <img src="assets/images/yusheng-3.jpg" alt="鱼生创意作品" loading="lazy">
+          <figcaption><b>金刀争霸</b>全国鱼生专项赛事 · 迎客松造型</figcaption>
+        </figure>
+        <figure class="card reveal" style="--d:2">
+          <img src="assets/images/yusheng-4.jpg" alt="鱼生创意作品" loading="lazy">
+          <figcaption><b>一鱼多吃</b>鱼骨熬汤，鱼肉作画</figcaption>
+        </figure>
+        <figure class="card reveal" style="--d:3">
+          <img src="assets/images/jasmine-8.jpg" alt="横州茉莉文创茶点" loading="lazy">
+          <figcaption><b>茉莉的浪漫</b>花香入馔 · 茉莉文创茶点伴手礼</figcaption>
+        </figure>
+      </div>
+
+      <dl class="menu reveal" style="--d:1">
+        <div class="menu-row"><dt>横州鱼生<i>SHENG YU</i></dt><dd>选郁江河鲜，"两片"连刀切法薄可透光；鱼腥草、柠檬、紫苏等二十余种配料各据一味，是横州人的"市菜"。</dd><span class="mark">非遗技艺</span></div>
+        <div class="menu-row"><dt>茉莉花宴<i>JASMINE FEAST</i></dt><dd>茉莉炒蛋、茉莉茶香虾、茉莉小酥肉、茉莉水晶鸡——鲜花入馔，清而不腻，只此一城。</dd><span class="mark">季节限定</span></div>
+        <div class="menu-row"><dt>横州大粽<i>BIG ZONGZI</i></dt><dd>"无粽不成年"。糯米、绿豆、五花肉，柴火慢焖一夜，切开香气四溢，一个足有一斤重。</dd><span class="mark">年味担当</span></div>
+        <div class="menu-row"><dt>酥肉粉<i>SU ROU FEN</i></dt><dd>横州人的一天从一碗酥肉粉开始：金脆酥肉配滑爽河粉，汤煮香浓，干捞酸爽。</dd><span class="mark">早餐之魂</span></div>
+        <div class="menu-row"><dt>木瓜丁 · 芝麻饼<i>SIDES</i></dt><dd>木瓜丁是横州人的"饭搭子"，酸香爽脆；芝麻饼糯米皮红薯心，是带得走的甜。</dd><span class="mark">伴手好礼</span></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- 行 · 锦囊 -->
+  <section class="chap container-q" id="tips">
+    <div class="wrap">
+      <div class="chap-head reveal"><span class="chap-no">行</span><h2 class="chap-title">出行锦囊</h2><span class="chap-en">Travel Tips</span></div>
+      <p class="chap-lede reveal" style="--d:1">从南宁出发 1 小时车程，把两天交给花香。</p>
+      <div class="tips">
+        <div class="tip reveal" style="--d:1">
+          <h4>怎么去<small>GETTING THERE</small></h4>
+          <p>自驾经南横高速（双向八车道）约 1 小时；或经湘桂铁路/黎钦铁路至横州站。西江黄金水道横贯全境，平陆运河起点即在横州——水陆皆可达。</p>
+        </div>
+        <div class="tip reveal" style="--d:2">
+          <h4>什么时候来<small>WHEN TO VISIT</small></h4>
+          <p><b>4–10 月</b>是茉莉花期，5 月开采季有"开游、开宴、开唱"系列活动；夏季宜避暑九龙瀑布，冬季可观西津候鸟。农历四月十四别错过伏波庙会。</p>
+        </div>
+        <div class="tip reveal" style="--d:3">
+          <h4>两日线路<small>SUGGESTED ROUTE</small></h4>
+          <ul class="route">
+            <li><b>Day 1</b> 中华茉莉园 → 茉莉极萃园 → 周顺来花茶展览馆 → 西津湖日落</li>
+            <li><b>Day 2</b> 西津国家湿地公园 → 圣茶谷茶园 → 九龙瀑布群 → 老城夜市觅味</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 尾注 -->
+  <footer class="chap" style="border-top:3px double var(--line-strong)">
+    <div class="wrap" style="font-size:.82em;color:var(--ink-3)">
+      <p style="letter-spacing:.2em;color:var(--moss);font-weight:700">资料与图片来源</p>
+      <p style="margin-top:.6em">文字综合横州市人民政府门户网站（gxhx.gov.cn）、南宁市文化广电和旅游局、广西壮族自治区农业农村厅及公开报道；图片来自横州市人民政府网（叶 子榕、黄汝德、曾春姬、陈国海 摄）、中国新闻网广西频道（俞靖、温富旭 摄）、中国网广西频道、南宁市民政局、镇龙乡人民政府及"横州发布"；两段视频由家乡提供。本站为家乡介绍的非商业个人项目，素材版权归原作者所有。</p>
+      <p style="margin-top:.8em;letter-spacing:.3em">茉莉横州 · 我的家乡 —— 见花，见山水，见人。</p>
+    </div>
+  </footer>
+
+</main>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="图片放大预览">
+  <button class="close" id="lb-close" aria-label="关闭">×</button>
+  <img id="lb-img" alt="">
+  <p class="cap" id="lb-cap"></p>
+</div>
+
+<script>
+const nav = document.getElementById('topnav');
+const links = [...document.querySelectorAll('#navlinks a')];
+const sections = links.map(a => document.querySelector(a.hash));
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lb-img');
+const lbCap = document.getElementById('lb-cap');
+
+/* 导航随滚动出现 + scrollspy */
+function onScroll(){
+  nav.classList.toggle('on', scrollY > innerHeight * .55);
+  const y = scrollY + innerHeight * .38;
+  let cur = -1;
+  sections.forEach((s, i) => { if (s && s.offsetTop <= y) cur = i; });
+  links.forEach((a, i) => a.classList.toggle('cur', i === cur));
+}
+addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+/* 渐入 */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+}), { threshold: .12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* 灯箱 */
+document.querySelectorAll('.card').forEach(fig => {
+  fig.addEventListener('click', () => {
+    const img = fig.querySelector('img');
+    const cap = fig.querySelector('figcaption');
+    lbImg.src = img.src; lbImg.alt = img.alt;
+    lbCap.textContent = cap ? cap.textContent : img.alt;
+    lightbox.classList.add('on');
+    document.getElementById('lb-close').focus();
+  });
+});
+function closeLb(){ lightbox.classList.remove('on'); lbImg.src = ''; }
+lightbox.addEventListener('click', e => { if (e.target === lightbox || e.target.id === 'lb-close') closeLb(); });
+addEventListener('keydown', e => { if (e.key === 'Escape' && lightbox.classList.contains('on')) closeLb(); });
+</script>
+</body>
+</html>
